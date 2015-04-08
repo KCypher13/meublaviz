@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Vodroche\CoreBundle\Entity;
+namespace Meublaviz\CoreBundle\Entity;
 
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;

@@ -79,11 +79,11 @@ swiftmailer:
 fos_user:
     db_driver:      orm # can be orm or odm
     firewall_name:  main
-    user_class:     Vodroche\CoreBundle\Entity\User
+    user_class:     Meublaviz\CoreBundle\Entity\User
 
 
     group:
-        group_class:   Vodroche\CoreBundle\Entity\Group
+        group_class:   Meublaviz\CoreBundle\Entity\Group
         group_manager: sonata.user.orm.group_manager
 
     service:
@@ -93,8 +93,8 @@ sonata_user:
     security_acl: true
     manager_type: orm # can be orm or mongodb
     class:
-        user: Vodroche\CoreBundle\Entity\User
-        group: Vodroche\CoreBundle\Entity\Group
+        user: Meublaviz\CoreBundle\Entity\User
+        group: Meublaviz\CoreBundle\Entity\Group
 
 sonata_block:
     default_contexts: [cms]
@@ -142,6 +142,6 @@ sonata_media:
             directory:  %kernel.root_dir%/../web/uploads/media
             create:     false
 
-parameters:
-    sonata.user.admin.user.class: Vodroche\BackBundle\Admin\UserAdmin
+#parameters:
+#    sonata.user.admin.user.class: Vodroche\BackBundle\Admin\UserAdmin
 
