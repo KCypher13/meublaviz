@@ -30,6 +30,13 @@ class User extends BaseUser
      */
     protected $id;
 
+     /**
+       * @ORM\ManyToOne(targetEntity="Meublaviz\CoreBundle\Entity\Meuble")
+       * @ORM\JoinColumn(nullable=true)
+       */
+    private $meuble;
+
+
 
     /**
      * Get id

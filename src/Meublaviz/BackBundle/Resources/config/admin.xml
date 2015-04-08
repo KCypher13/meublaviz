@@ -1,0 +1,39 @@
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+       <service id="meublaviz.admin.meuble" class="Meublaviz\BackBundle\Admin\MeubleAdmin">
+          <tag name="sonata.admin" manager_type="orm" group="Content" label="Meuble"/>
+          <argument />
+          <argument>Meublaviz\CoreBundle\Entity\Meuble</argument>
+          <argument />
+          <call method="setTranslationDomain">
+              <argument>MeublavizBackBundle</argument>
+          </call>
+      </service>
+
+
+      <service id="meublaviz.admin.tag" class="Meublaviz\BackBundle\Admin\TagAdmin">
+          <tag name="sonata.admin" manager_type="orm" group="Content" label="Tag"/>
+          <argument />
+          <argument>Meublaviz\CoreBundle\Entity\Tag</argument>
+          <argument />
+          <call method="setTranslationDomain">
+              <argument>MeublavizBackBundle</argument>
+          </call>
+      </service>
+
+      <service id="meublaviz.admin.demenagement" class="Meublaviz\BackBundle\Admin\DemenagementAdmin">
+          <tag name="sonata.admin" manager_type="orm" group="Content" label="Demenagement"/>
+          <argument />
+          <argument>Meublaviz\CoreBundle\Entity\Demenagement</argument>
+          <argument />
+          <call method="setTranslationDomain">
+              <argument>MeublavizBackBundle</argument>
+          </call>
+      </service>
+
+   </services>
+</container>
+
