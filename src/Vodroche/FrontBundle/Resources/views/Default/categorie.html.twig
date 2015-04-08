@@ -1,0 +1,104 @@
+{% extends 'VodrocheFrontBundle::layout.html.twig' %}
+
+{% block content %}
+
+	<section id="main" class="wrapper">
+		
+		{% if comment %}
+			<p class="notice">Merci pour votre commentaire</p>
+		{% endif %}
+
+		<p>Choisissez votre thème</p>
+		<ul class="categories">
+			{% for cate in categories %}
+                    <li class="btn {% if loop.index is divisible by(5) %}nomargin{% endif %}" ><a href="{{ path('categorie', { 'id': cate.id }) }}" {% if cate.name == title %} class="active" {% endif %} ><span>{{cate.name}}</span></a></li>
+            {% endfor %}
+		</ul>
+		<section id="videos">
+		{% if videos == false %}
+				<p style="margin-top:20px;text-align:center;">Cette catégorie ne contient pas de vidéo</p>
+			{% endif %}
+			{% for video in videos %}
+				<div class='videoContainer'>
+					<div class="video" data-id={{video.video|raw}}>
+						<div class="videoWrapper">
+							<!-- Start of Brightcove Player -->
+							<object id="myExperience2385845349001" class="BrightcoveExperience">
+								<param name="bgcolor" value="#FFFFFF" />
+								<param name="playerID" value="4090806317001" />
+								<param name="playerKey" value="AQ~~,AAACK2FgWxE~,CemupA8__LH8QV6OanceljCJawh1hTnZ" />
+								<param name="isVid" value="true" />
+								<param name="isUI" value="true" />
+								<param name="dynamicStreaming" value="true" />
+								<param name="@videoPlayer" value="{{video.video|raw}}" />
+							</object> 
+							<script type="text/javascript">
+							// <![CDATA[ brightcove.createExperiences(); // ]]>
+							</script> 
+							<!-- End of Brightcove Player -->	
+						</div>
+					</div><div class="infoVideo">
+						<h3>{{video.title}}</h3>
+						<p class="duration">{{video.duration}}</p>
+						<p class="speaker">Présenté par : {{video.speaker}}</p>
+						<p class="summary">Sujet : {{video.summary}}</p>
+						<div class="actions">
+							<div class="btn" id="downloadLink{{ loop.index0 }}"></div>
+							<div class="btn" ><a href="{% path video.pdf, 'reference' %}" target="_blank" download><span>Télécharger la présentation PDF</span></a></div>
+							<div class="btn"><a href="{{ path('video', { 'categoriename': title, 'id': video.id }) }}"><span>Commenter / évaluer la vidéo</span></a></div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</section>
+
+	</section>
+{% endblock %}
+
+{% block javascript %}
+<script src="http://admin.brightcove.com/js/BrightcoveExperiences.js" type="text/javascript" language="JavaScript"></script>
+<script type="text/javascript" src="http://files.brightcove.com/bc-mapi.js"></script>
+<script>
+		function getDownloadLink(id) {
+            // Use media API to get URL to video
+            //
+            // object for search parameters
+            var searchParams = new Object();
+            // set Media API token - MUST BE URL ACCESS READ token!!
+            BCMAPI.token = "BZ2rsLUzLmE8s5ZJjx1-V31i4ySFzSQBJS9Z0ekgYhHMjOfvc8odBQ..";
+            // set callback for Media API call
+            BCMAPI.callback = "onSearchResult";
+            // set command
+            BCMAPI.command = "find_video_by_id";
+            // set search params
+            searchParams.video_id = id;
+            // need this if the delivery for the account is streaming, and Universal Delivery Service must be enabled!
+            searchParams.media_delivery = "HTTP";
+            // just get the field we need for better performance
+            searchParams.video_fields = "FLVURL";
+            // execute the search
+            BCMAPI.find(BCMAPI.command, searchParams);
+        }	
+		var i = 0;
+		function onSearchResult(jsondata) {
+		    // create the link and write it into the HTML
+		    var str = "";
+		    str += "<a href='" + jsondata.FLVURL + "' target='_blank' download><span>Télécharger la vidéo</span></a>";
+		    document.getElementById("downloadLink"+i).innerHTML = str;
+		    i++;
+		}
+
+		$(document).ready(function(){
+			$.each($('.video'), function(index, val) {
+				getDownloadLink($(this).data('id'));
+			});
+
+			$('.infoVideo').height($('.videoContainer').height());
+
+			$(window).resize(function(){
+				$('.infoVideo').height($('.video').height());				
+			})
+		})
+</script>
+
+{% endblock %}
