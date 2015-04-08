@@ -13,21 +13,6 @@ meublaviz_core:
     type:     annotation
     prefix:   /
 
-vodroche_back:
-    resource: "@VodrocheBackBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-vodroche_core:
-    resource: "@VodrocheCoreBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-vodroche_front:
-    resource: "@VodrocheFrontBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin

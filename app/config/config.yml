@@ -3,7 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: sonata_core.yml }
-    - { resource: @VodrocheBackBundle/Resources/config/admin.xml }
+    #- { resource: @MeublavizBackBundle/Resources/config/admin.xml }
 
 framework:
     #esi:             ~
